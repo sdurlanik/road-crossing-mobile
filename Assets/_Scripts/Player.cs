@@ -33,10 +33,18 @@ public class Player : MonoBehaviour
    public void AddScore(int amount)
    {
       _score += amount;
+      UI.instance.UpdateScoreText(_score);
+
    }
 
    public void GameOver()
    {
-      print("Game Over");
+      UI.instance.SetEndScreen(false);
+   }
+
+   public void Win()
+   {
+      UI.instance.SetEndScreen(true);
+
    }
 }
