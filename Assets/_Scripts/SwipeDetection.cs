@@ -6,92 +6,92 @@ using UnityEngine;
 public class SwipeDetection : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private int pixelDistToDetect = 20;
-    private Vector2 startPos;
-    private bool fingerDown;
+    [SerializeField] private int _pixelDistToDetect = 20;
+    private Vector2 _startPos;
+    private bool _fingerDown;
 
     private void Update()
     {
-        if (!fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        if (!_fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
         {
-            startPos = Input.touches[0].position;
-            fingerDown = true;
+            _startPos = Input.touches[0].position;
+            _fingerDown = true;
         }
 
         // ekrana dokunuldu mu
-        if (fingerDown)
+        if (_fingerDown)
         {
             // yukarı kaydırıldı mı
-            if (Input.touches[0].position.y >= startPos.y + pixelDistToDetect)
+            if (Input.touches[0].position.y >= _startPos.y + _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.up);
 
             }
-            else if (Input.touches[0].position.y <= startPos.y - pixelDistToDetect)
+            else if (Input.touches[0].position.y <= _startPos.y - _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.down);
 
             }
-            else if (Input.touches[0].position.x <= startPos.x - pixelDistToDetect)
+            else if (Input.touches[0].position.x <= _startPos.x - _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.left);
 
             }
-            else if (Input.touches[0].position.x >= startPos.x + pixelDistToDetect)
+            else if (Input.touches[0].position.x >= _startPos.x + _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.right);
 
             }
         }
 
         // parmak ekrandan kaldırıldı mı
-        if (fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
+        if (_fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
         {
-            fingerDown = false;
+            _fingerDown = false;
         }
         
         // Testing for PC
 
-        if (!fingerDown && Input.GetMouseButtonDown(0))
+        if (!_fingerDown && Input.GetMouseButtonDown(0))
         {
-            startPos = Input.mousePosition;
-            fingerDown = true;
+            _startPos = Input.mousePosition;
+            _fingerDown = true;
         }
 
-        if (fingerDown)
+        if (_fingerDown)
         {
-            if (Input.mousePosition.y >= startPos.y + pixelDistToDetect)
+            if (Input.mousePosition.y >= _startPos.y + _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.up);
             } 
-            else if (Input.mousePosition.y <= startPos.y - pixelDistToDetect)
+            else if (Input.mousePosition.y <= _startPos.y - _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.down);
 
             } 
-            else if (Input.mousePosition.x <= startPos.x - pixelDistToDetect)
+            else if (Input.mousePosition.x <= _startPos.x - _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.left);
 
             }
-            else if (Input.mousePosition.x >= startPos.x + pixelDistToDetect)
+            else if (Input.mousePosition.x >= _startPos.x + _pixelDistToDetect)
             {
-                fingerDown = false;
+                _fingerDown = false;
                 _player.Move(Vector3.right);
 
             }
         }
 
-        if (fingerDown && Input.GetMouseButtonUp(0))
+        if (_fingerDown && Input.GetMouseButtonUp(0))
         {
-            fingerDown = false;
+            _fingerDown = false;
         }
     }
 }
